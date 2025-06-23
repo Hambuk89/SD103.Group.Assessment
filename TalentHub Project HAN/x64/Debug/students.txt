@@ -1,0 +1,161 @@
+student
+HAN
+1111
+HAN YOO
+36
+poxsstar@gmail.com
+02112345678
+1000 Auckland Road
+Domestic
+Student logged in: HAN YOO
+student
+2
+2
+2
+2
+2
+2
+2
+2
+Student logged out: 2
+Student logged in successfully.
+student
+MATTHEW
+1234
+MATTHEW ORR
+20
+MATTHEWORR@YOOBEECOLLEGE.NZ
+0210987676
+100 NEWZEALAND
+DOMESTIC
+Student logged out: 2
+Student logged in successfully.
+Student logged in: MATTHEW ORR
+student
+HAN
+1234
+HAN YOO
+36
+poxsstar@gmail.com
+02108888888
+1000 Auckland
+Domestic
+Student logged in: HAN YOO
+student
+HAN
+1111
+HAN YOO
+36
+poxsstar@gmail.com
+02112345667
+1000 Auckland
+Domestic
+Student Profile: HAN YOO (HAN)
+Student logged in: HAN YOO
+View Available Courses: HAN YOO
+Introduction to Infromation Technology (0 enrolled)
+Foundations of Management (0 enrolled)
+Project Management Essentials (0 enrolled)
+English for Academic Purposes (0 enrolled)
+Business Communication (0 enrolled)
+Conversational Languages (0 enrolled)
+CISCO (0 enrolled)
+Microsoft Certification (0 enrolled)
+Enrolled in course: Introduction to Infromation Technology
+student
+HAN
+1234
+HANYOO
+36
+poxsstar@gmail.com
+02100000000
+1000 Auckland
+Domestic
+Student logged in: HANYOO
+Student Profile: HAN
+No courses enrolled
+Failed enrollment attempt by HAN
+View Available Courses: HANYOO
+Introduction to Infromation Technology (0 enrolled)
+Foundations of Management (0 enrolled)
+Project Management Essentials (0 enrolled)
+English for Academic Purposes (0 enrolled)
+Business Communication (0 enrolled)
+Conversational Languages (0 enrolled)
+CISCO (0 enrolled)
+Microsoft Certification (0 enrolled)
+Enrolled in course: Introduction to Infromation Technology
+student
+HAN
+1111
+HAN
+36
+pspspspsp@gmail.com
+0210000000
+1000 Auckland
+Domestic
+Student logged in: HAN
+View Available Courses: HAN
+Introduction to Information Technology (0 enrolled)
+Foundations of Management (0 enrolled)
+Project Management Essentials (0 enrolled)
+English for Academic Purposes (0 enrolled)
+Business Communication (0 enrolled)
+Conversational Languages (0 enrolled)
+CISCO (0 enrolled)
+Microsoft Certification (0 enrolled)
+Enrolled in course: Foundations of Management
+Dropped from course: Foundations of Management
+View Available Courses: HAN
+Introduction to Information Technology (0 enrolled)
+Foundations of Management (0 enrolled)
+Project Management Essentials (0 enrolled)
+English for Academic Purposes (0 enrolled)
+Business Communication (0 enrolled)
+Conversational Languages (0 enrolled)
+CISCO (0 enrolled)
+Microsoft Certification (0 enrolled)
+Student Profile: HAN
+No courses enrolled
+View Available Courses: HAN
+Introduction to Information Technology (0 enrolled)
+Foundations of Management (0 enrolled)
+Project Management Essentials (0 enrolled)
+English for Academic Purposes (0 enrolled)
+Business Communication (0 enrolled)
+Conversational Languages (0 enrolled)
+CISCO (0 enrolled)
+Microsoft Certification (0 enrolled)
+View Available Courses: HAN
+Introduction to Information Technology (0 enrolled)
+Foundations of Management (0 enrolled)
+Project Management Essentials (0 enrolled)
+English for Academic Purposes (0 enrolled)
+Business Communication (0 enrolled)
+Conversational Languages (0 enrolled)
+CISCO (0 enrolled)
+Microsoft Certification (0 enrolled)
+Enrolled in course: Introduction to Information Technology
+Already enrolled in course: Introduction to Information Technology
+Enrolled in course: Foundations of Management
+Enrolled in course: Project Management Essentials
+Student logged out: HAN
+Student logged in successfully.
+Student Profile: HAN (HAN)
+Domestic Student: HAN (HAN)
+Course: Introduction to Information Technology
+Enrolled Students:
+ - HAN
+Course: Foundations of Management
+Enrolled Students:
+ - HAN
+Course: Project Management Essentials
+Enrolled Students:
+ - HAN
+Student logged in: HAN
+Student Profile: HAN
+Enrolled in course: Introduction to Information Technology
+Enrolled in course: Foundations of Management
+Enrolled in course: Project Management Essentials
+Student logged out: HAN
+Student logged in successfully.
