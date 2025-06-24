@@ -1,3 +1,6 @@
+// =======================
+// TalentHub Project developed by Matthew, Laila, Han
+// =======================
 
 #include <iostream>
 #include <cmath>
@@ -48,11 +51,11 @@ vector<Course> courses = {
 	{"Microsoft Certification", {}}
 };     
 
-void registerStudent() {
+void registerStudent() { // function to register a new student
 
 	//string password;
 
-    Student s;
+    Student s; // s variable to store student details
     cout << "*************** Please fill in the details to get started!!! ***************\n";
     cout << "Username: "; getline(cin, s.username);
     //cout << "Password: "; getline(cin,s.password); 
@@ -63,9 +66,9 @@ void registerStudent() {
     cout << "Phone: "; getline(cin, s.phone);
 	cout << "Current Address: "; getline(cin, s.currentAddress);
     cout << "Student Type (Domestic/International): "; getline(cin, s.studentType);
-    students.push_back(s);
+    students.push_back(s); // Add the new student to the students vector
 
-	ofstream file("students.txt", ios::app); // Append mode to add new students
+	ofstream file("students.txt", ios::app); // Append mode to add new students with registered details
 	file << "student\n"
 		<< s.username << "\n"
 		<< s.password << "\n"
@@ -79,16 +82,16 @@ void registerStudent() {
     cout << "Registration successful!\n";
 }
 
-void registerAdmin() {
-	Admin a; 
+void registerAdmin() { // function to register a new admin
+	Admin a; // a variable to store admin details
 	cout << "*************** Admin Register ***************\n";
 	cout << "Username: "; getline(cin, a.username);
 	cout << "Password: "; getline(cin, a.password);
 	cout << "Full Name: "; getline(cin, a.fullName);
 	cout << "Email: "; getline(cin, a.email);
-	admins.push_back(a);
+	admins.push_back(a); // Add the new admin to the admins vector
 
-	ofstream file("admins.txt", ios::app);
+	ofstream file("admins.txt", ios::app); // Append mode to add new admins with registered details.
 	file << "admin\n"
 		<< a.username << "\n"
 		<< a.password << "\n"
@@ -98,17 +101,17 @@ void registerAdmin() {
     cout << "Admin registration successful!\n";
 }
 
-bool login() {
+bool login() { // function to login a student
     string username, password;
     cout << "*************** Login ***************\n";
     cout << "Username: ";
 	getline(cin, username);
     cout << "Password: ";
 	getline(cin, password);
-    for (const auto& s : students) {
+    for (const auto& s : students) { // loop to check if the username and password match with the registered students
         if (s.username == username && s.password == password) {
             cout << "Login successful! Welcome, " << s.fullName << ".\n";
-			ofstream file("students.txt", ios::app);
+			ofstream file("students.txt", ios::app); // append mode to log the login activity
 			file << "Student logged in: " << s.fullName << "\n";
 			file.close();
             return true;
@@ -118,15 +121,15 @@ bool login() {
     return false;
 }
 
-bool Adminlogin() {
+bool Adminlogin() { // function to login an admin
 	string username, password;
 	cout << "*************** Admin Login ***************\n";
 	cout << "Username: "; getline(cin, username);
 	cout << "Password: "; getline(cin, password);
-	for (const auto& a : admins) {
+	for (const auto& a : admins) { // loop to check if the username and password match with the registered admins
 		if (a.username == username && a.password == password) {
 			cout << "Admin login successful! Welcome, " << a.fullName << ".\n";
-			ofstream file("admins.txt", ios::app);
+			ofstream file("admins.txt", ios::app); // append mode to log the login activity
 			file << "Admin logged in: " << a.fullName << "\n";
 			file.close();
 			return true;
@@ -136,14 +139,14 @@ bool Adminlogin() {
 	return false;
 }
 
-void forgotUsername() {
+void forgotUsername() { // function to find the username with the email
     string email;
     cout << "*************** Find your Username with your Email ***************\n";
     cout << "Enter your email: "; getline(cin, email);
-    for (const auto& s : students) {
+    for (const auto& s : students) { // loop to check if the email matches with the registered students
         if (s.email == email) {
             cout << "Your username is: " << s.username << "\n";
-			ofstream file("students.txt", ios::app);
+			ofstream file("students.txt", ios::app); // append mode to log the activity
 			file << "Username found for email: " << email << "\n";
 			file.close();
             return;
@@ -152,15 +155,15 @@ void forgotUsername() {
     cout << "Email not found.\n";
 }
 
-void forgotPassword() {
+void forgotPassword() { // function to find the password with the username and email
     string username, email;
     cout << "*************** Find your Password with your Username and Email ***************\n";
     cout << "Enter your username: "; getline(cin, username);
     cout << "Enter your email: "; getline(cin, email);
-    for (const auto& s : students) {
+    for (const auto& s : students) { // loop to check if the username and email match with the registered students
         if (s.username == username && s.email == email) {
             cout << "Your password is: " << s.password << "\n";
-			ofstream file("students.txt", ios::app);
+			ofstream file("students.txt", ios::app); // append mode to log the activity
 			file << "Password found for username: " << username << " and email: " << email << "\n";
 			file.close();
             return;
@@ -169,21 +172,21 @@ void forgotPassword() {
     cout << "Username and email do not match.\n";
 }
 
-void viewStudentProfiles() {
+void viewStudentProfiles() { // function to view student profiles
 	vector<Student> sortedStudents = students;
-	sort(sortedStudents.begin(), sortedStudents.end(), [](const Student& a, const Student& b) {
+	sort(sortedStudents.begin(), sortedStudents.end(), [](const Student& a, const Student& b) { // Sort by full name alphabetically
 		return a.fullName < b.fullName;
 		});
 	cout << "*************** Student Profiles (Alphabetically) ***************\n";
-	for (const auto& s : sortedStudents) {
+	for (const auto& s : sortedStudents) { // loop to print the student profiles
 		cout << s.fullName << " (" << s.username << ")\n";
-		ofstream file("students.txt", ios::app);
+		ofstream file("students.txt", ios::app); // append mode to log the student profiles
 		file << "Student Profile: " << s.fullName << " (" << s.username << ")\n" << endl;
 		file.close();
 	}
 }
 
-void viewStudentByTypes() {
+void viewStudentByTypes() { // function to view students by type (Domestic or International)
 	cout << "*************** View Students by Type ***************\n";
 	cout << "1. Domestic Students\n";
 	cout << "2. International Students\n";
@@ -218,12 +221,12 @@ void viewStudentByTypes() {
 	}
 }
 
-void viewCourseDetails() {
+void viewCourseDetails() { // function to view course details and enrolled students
 	for (const auto& c : courses) {
 		cout << "Course: " << c.courseName << "\n";
 		cout << "Enrolled Students:\n";
 		for (const auto& student : c.studentsEnrolled) {
-			auto it = find_if(students.begin(), students.end(), [&](const Student& s) { return s.username == student; });
+			auto it = find_if(students.begin(), students.end(), [&](const Student& s) { return s.username == student; }); // find the student by username in the students vector
 			if (it != students.end()) cout << " - " << it->fullName << " (" << student << ")\n";
 			ofstream file("students.txt", ios::app);
 			file << "Course: " << c.courseName << "\n";
@@ -235,12 +238,12 @@ void viewCourseDetails() {
 	}
 }
 
-void searchStudentByName() {
+void searchStudentByName() { // function to search for a student by full name
 	cout << "*************** Search Student by Username ***************\n";
 	string fullName;
 	cout << "Enter the student's full name: "; getline(cin, fullName);
 	bool found = false;
-	for (const auto& s : students) {
+	for (const auto& s : students) { // loop to check if the full name matches with the registered students
 		if (s.fullName == fullName) {
 			ofstream file("students.txt", ios::app);
 			cout << "Student found: " << s.fullName << " (" << s.username << ")\n";
@@ -253,20 +256,20 @@ void searchStudentByName() {
 	}
 }
 
-void manageCourseEnrollment() {
+void manageCourseEnrollment() { // function to manage course enrollment for a student
 	cout << "*************** Manage Course Enrollment ***************\n";
 	cout << "Enter student fullname:\n";
 	string sName;
 	getline(cin, sName);
 
 	int studentIndex = -1; // intialize the variable studentIndex to -1 to indicate that the student is not found yet
-	for (int i = 0; i < students.size(); ++i) {
-		if (students[i].fullName == sName) {
+	for (int i = 0; i < students.size(); ++i) { // loop to find the student by full name in the students vector
+		if (students[i].fullName == sName) { // if the full name matches with the registered students
 			studentIndex = i;
 			break;
 		}
 	}
-	if (studentIndex == -1) {
+	if (studentIndex == -1) { // if the student is not found, print a message and return
 		cout << "Student not found.\n";
 		return;
 	}
@@ -277,7 +280,7 @@ void manageCourseEnrollment() {
 	getline(cin, option);
 
 	cout << "Available Courses:\n";
-	for (int i = 0; i < courses.size(); ++i) {
+	for (int i = 0; i < courses.size(); ++i) { // loop to print the available courses
 		cout << " " << (i + 1) << ".  " << courses[i].courseName << endl;
 	}
 	cout << "Enter course Number: ";
@@ -298,7 +301,7 @@ void manageCourseEnrollment() {
 	}
 
 	
-	vector<string>& enrolled = courses[courseIndex].studentsEnrolled;
+	vector<string>& enrolled = courses[courseIndex].studentsEnrolled; // get the vector of enrolled students for the selected course
 	sName = students[studentIndex].fullName; // get the full name of the student from the students vector using the studentIndex
 	
 	if (option == "1") {
@@ -324,7 +327,7 @@ void manageCourseEnrollment() {
 				break;
 			}
 		}
-		if (!enrolledStudent) {
+		if (!enrolledStudent) { // if the student is not found in the course, print a message
 			cout << "Student " << sName << " is not enrolled in the course " << courses[courseIndex].courseName << ".\n";
 		}
 	}
@@ -338,8 +341,12 @@ void manageCourseEnrollment() {
 	file << (option == "1" ? "Added to" : "Removed from") << " course: " << courses[courseIndex].courseName << "\n";
 	file.close();
 }
-
-void studentsMenu(int studentIndex) {
+// =======================
+// Students Menu
+// =======================
+// Coded by Han
+// =======================
+void studentsMenu(int studentIndex) { // function to display the student menu and handle student actions
 	while (true) {
 		cout << "\n*************** Student Page ***************\n";
 		cout << "1. View Profile\n";
@@ -351,14 +358,14 @@ void studentsMenu(int studentIndex) {
 		string choice; 
 		getline(cin, choice);
 
-		Student& currentStudent = students[studentIndex];
+		Student& currentStudent = students[studentIndex]; // Get the current student using the studentIndex passed to the function
 
-		int enrolledCourseIndexes[8];
-		int enrolledCount = 0;
-		for (int courseIndex = 0; courseIndex < courses.size(); ++courseIndex) {
-			for (int studentInCourseIndex = 0; courses[courseIndex].studentsEnrolled.size(); ++studentInCourseIndex) {
-				if (courses[courseIndex].studentsEnrolled[studentInCourseIndex] == currentStudent.fullName) {
-					enrolledCourseIndexes[enrolledCount++] = courseIndex;
+		int enrolledCourseIndexes[8]; // array to store 8 enrolled course indexes
+		int enrolledCount = 0; // count of enrolled courses
+		for (int courseIndex = 0; courseIndex < courses.size(); ++courseIndex) { // loop through all courses to find the enrolled courses for the current student
+			for (int studentInCourseIndex = 0; courses[courseIndex].studentsEnrolled.size(); ++studentInCourseIndex) { // loop through all students enrolled in the course
+				if (courses[courseIndex].studentsEnrolled[studentInCourseIndex] == currentStudent.fullName) { // if the student is enrolled in the course
+					enrolledCourseIndexes[enrolledCount++] = courseIndex; // store the course index in the enrolledCourseIndexes array and increment the count
 					break;
 				}
 			}
@@ -378,7 +385,7 @@ void studentsMenu(int studentIndex) {
 				cout << endl;
 			}
 			else {
-				for (int enrolledIndex = 0; enrolledIndex < enrolledCount; ++enrolledIndex) {
+				for (int enrolledIndex = 0; enrolledIndex < enrolledCount; ++enrolledIndex) { // loop through all enrolled courses and print the course name
 					cout << " - " << courses[enrolledCourseIndexes[enrolledIndex]].courseName << endl;
 					file << "Enrolled in course: " << courses[enrolledCourseIndexes[enrolledIndex]].courseName << "\n";
 					cout << endl;
@@ -390,7 +397,7 @@ void studentsMenu(int studentIndex) {
 			cout << "Available Courses:\n";
 			ofstream file("students.txt", ios::app);
 			file << "View Available Courses: " << currentStudent.fullName << "\n";
-			for (int courseIndex = 0; courseIndex < courses.size(); ++courseIndex) {
+			for (int courseIndex = 0; courseIndex < courses.size(); ++courseIndex) { // loop through all courses and print the course name and enrolled students count
 				cout << (courseIndex + 1) << ". " << courses[courseIndex].courseName << "\n"
 				<< " (" << courses[courseIndex].studentsEnrolled.size() << " enrolled)\n";
 				file << courses[courseIndex].courseName << " (" << courses[courseIndex].studentsEnrolled.size() << " enrolled)\n";
@@ -402,22 +409,22 @@ void studentsMenu(int studentIndex) {
 			cout << "Enter courses number to enrol: ";
 			string enrolchoice;
 			getline(cin, enrolchoice);
-			int selectedCourseIndex = -1;
-			for (int courseIndex = 0; courseIndex < courses.size(); ++courseIndex) {
-				if (enrolchoice == to_string(courseIndex + 1)) {
-					selectedCourseIndex = courseIndex;
+			int selectedCourseIndex = -1; // variable to store the selected course index
+			for (int courseIndex = 0; courseIndex < courses.size(); ++courseIndex) { // loop through all courses to find the selected course by comparing the input with the course index
+				if (enrolchoice == to_string(courseIndex + 1)) { // if the input matches the course index
+					selectedCourseIndex = courseIndex; // set the selectedCourseIndex to the course index
 					break;
 					cout << endl;
 				}
 			}
 			ofstream file("students.txt", ios::app);
-			if (selectedCourseIndex == -1) {
+			if (selectedCourseIndex == -1) { // if the selectedCourseIndex is -1, it means the course is not found
 				cout << "Invalid class number.\n";
 				file << "Failed enrollment attempt by " << currentStudent.username << "\n";
 				cout << endl;
 			}
 			else {
-				bool alreadyEnrolled = false;
+				bool alreadyEnrolled = false; // variable to check if the student is already enrolled in the course
 				for (int studentInCourseIndex = 0; studentInCourseIndex < courses[selectedCourseIndex].studentsEnrolled.size(); ++studentInCourseIndex) {
 					if (courses[selectedCourseIndex].studentsEnrolled[studentInCourseIndex] == currentStudent.username) alreadyEnrolled = true;
 				}
@@ -434,7 +441,7 @@ void studentsMenu(int studentIndex) {
 			file.close();
 		}
 		else if (choice == "4") {
-			if (enrolledCount == 0) {
+			if (enrolledCount == 0) { // if the enrolledCount is 0, it means the student is not enrolled in any course
 				cout << "No classes to drop.\n";
 				ofstream file("students.txt", ios::app);
 				file << "No classes to drop for " << currentStudent.username << "\n";
@@ -448,7 +455,7 @@ void studentsMenu(int studentIndex) {
 				cout << "Enter course number to drop: ";
 				string dropChoice;
 				getline(cin, dropChoice);
-				int dropCourseIndex = -1;
+				int dropCourseIndex = -1; // variable to store the course index to be dropped
 				for (int courseIndex = 0; courseIndex < enrolledCount; ++courseIndex) {
 					if (dropChoice == to_string(courseIndex + 1)) {
 						dropCourseIndex = enrolledCourseIndexes[courseIndex];
@@ -493,8 +500,13 @@ void studentsMenu(int studentIndex) {
 		}
 	}
 }
+// =======================
+// Admin Menu
+// =======================
+// Coded by Han
+// =======================
 
-void adminMenu() {
+void adminMenu() { // function to display the admin menu and handle admin actions
     while (true) {
 		cout << "\n*************** Admin Page ***************\n";
         cout << "1. View Student Profile (Alphabetically)\n";
@@ -515,7 +527,7 @@ void adminMenu() {
 		else cout << "Invalid option. Please try again.\n";
     }
 }
-
+// =======================
 
 // =======================
 // Password Functions
@@ -576,8 +588,12 @@ string strength_label(int score)
 }
 // =======================
 
-
-int main() {
+// =======================
+// Main Menu
+// =======================
+// Coded by Han
+// =======================
+int main() { // main function to run the TalentHub Online application
     while (true) {
         cout << "\n*************** Welcome to the TalentHub Online ***************\n";
         cout << "1. Register\n";
@@ -602,8 +618,8 @@ int main() {
 
 			//getline(cin, password);
 
-			int studentIndex = -1;
-			for (int i = 0; i < students.size(); ++i) {
+			int studentIndex = -1; // Initialize studentIndex to -1 to indicate that the student is not found yet
+			for (int i = 0; i < students.size(); ++i) { // loop through all registered students to find the matching username and password
 				if (students[i].username == username && students[i].password == password) {
 					studentIndex = i;
 					cout << "Login successful! Welcome, " << students[i].fullName << ".\n";
@@ -670,7 +686,6 @@ int main() {
     }
     return 0;
 }
-
 // =======================
 // Password Functions
 // =======================
