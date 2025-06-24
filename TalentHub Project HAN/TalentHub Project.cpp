@@ -1,15 +1,20 @@
-﻿
+
 #include <iostream>
+#include <cmath>
 #include <fstream>
-#include <vector>
 #include <string>
+#include <array>
+#include <vector>
+#include <cctype>
 #include <algorithm>
 
 using namespace std;
 
+string get_valid_password();
+
 struct Student {
     string username;
-    string password;
+	string password;
     string fullName;
     string age;
     string email;
@@ -44,10 +49,14 @@ vector<Course> courses = {
 };     
 
 void registerStudent() {
+
+	//string password;
+
     Student s;
     cout << "*************** Please fill in the details to get started!!! ***************\n";
     cout << "Username: "; getline(cin, s.username);
-    cout << "Password: "; getline(cin, s.password);
+    //cout << "Password: "; getline(cin,s.password); 
+	s.password = get_valid_password();
     cout << "Full Name: "; getline(cin, s.fullName);;
 	cout << "Email: "; getline(cin, s.email);
     cout << "Age: "; getline(cin, s.age);
@@ -92,8 +101,10 @@ void registerAdmin() {
 bool login() {
     string username, password;
     cout << "*************** Login ***************\n";
-    cout << "Username: "; getline(cin, username);
-    cout << "Password: "; getline(cin, password);
+    cout << "Username: ";
+	getline(cin, username);
+    cout << "Password: ";
+	getline(cin, password);
     for (const auto& s : students) {
         if (s.username == username && s.password == password) {
             cout << "Login successful! Welcome, " << s.fullName << ".\n";
@@ -167,7 +178,7 @@ void viewStudentProfiles() {
 	for (const auto& s : sortedStudents) {
 		cout << s.fullName << " (" << s.username << ")\n";
 		ofstream file("students.txt", ios::app);
-		file << "Student Profile: " << s.fullName << " (" << s.username << ")\n";
+		file << "Student Profile: " << s.fullName << " (" << s.username << ")\n" << endl;
 		file.close();
 	}
 }
@@ -364,11 +375,13 @@ void studentsMenu(int studentIndex) {
 			if (enrolledCount == 0) {
 				cout << "Please enrol in a course first\n";
 				file << "No courses enrolled\n";
+				cout << endl;
 			}
 			else {
 				for (int enrolledIndex = 0; enrolledIndex < enrolledCount; ++enrolledIndex) {
 					cout << " - " << courses[enrolledCourseIndexes[enrolledIndex]].courseName << endl;
 					file << "Enrolled in course: " << courses[enrolledCourseIndexes[enrolledIndex]].courseName << "\n";
+					cout << endl;
 				}
 			}
 			file.close();
@@ -381,6 +394,7 @@ void studentsMenu(int studentIndex) {
 				cout << (courseIndex + 1) << ". " << courses[courseIndex].courseName << "\n"
 				<< " (" << courses[courseIndex].studentsEnrolled.size() << " enrolled)\n";
 				file << courses[courseIndex].courseName << " (" << courses[courseIndex].studentsEnrolled.size() << " enrolled)\n";
+				cout << endl;
 			}
 			file.close();
 		}
@@ -393,12 +407,14 @@ void studentsMenu(int studentIndex) {
 				if (enrolchoice == to_string(courseIndex + 1)) {
 					selectedCourseIndex = courseIndex;
 					break;
+					cout << endl;
 				}
 			}
 			ofstream file("students.txt", ios::app);
 			if (selectedCourseIndex == -1) {
 				cout << "Invalid class number.\n";
 				file << "Failed enrollment attempt by " << currentStudent.username << "\n";
+				cout << endl;
 			}
 			else {
 				bool alreadyEnrolled = false;
@@ -423,6 +439,7 @@ void studentsMenu(int studentIndex) {
 				ofstream file("students.txt", ios::app);
 				file << "No classes to drop for " << currentStudent.username << "\n";
 				file.close();
+				cout << endl;
 			}
 			else {
 				for (int enrolledIndex = 0; enrolledIndex < enrolledCount; ++enrolledIndex) {
@@ -500,6 +517,65 @@ void adminMenu() {
 }
 
 
+// =======================
+// Password Functions
+// =======================
+// Coded by Matthew
+// =======================
+
+template <typename Pred>
+bool contains_if(const string& s, Pred p)
+{
+	return any_of(s.begin(), s.end(), p);
+}
+
+struct Result
+{
+	int score;
+	vector<string>tips;
+};
+
+// function for evaluating the password and setting the criteria
+Result evaluate_password(const string& pw)
+{
+	Result out{ 0, {} };
+
+	bool long_enough = pw.length() >= 8;
+	bool has_upper = contains_if(pw, isupper);
+	bool has_lower = contains_if(pw, islower);
+	bool has_digit = contains_if(pw, isdigit);
+	bool has_special = contains_if(pw, ispunct);
+
+	// each criteria met adds 1 point, they need all 5 to meet requirements
+	out.score = static_cast<int>(long_enough)
+		+ static_cast<int>(has_upper)
+		+ static_cast<int>(has_lower)
+		+ static_cast<int>(has_digit)
+		+ static_cast<int>(has_special);
+
+	// Tips for each section they'll be prompted if not meting any
+	if (!long_enough) out.tips.emplace_back("Use at least 8 charcters.");
+	if (!has_upper) out.tips.emplace_back("Add an uppercase letter (A-Z).");
+	if (!has_lower) out.tips.emplace_back("Add a lowercase leter (a-z).");
+	if (!has_digit) out.tips.emplace_back("Include a digit (0-9).");
+	if (!has_special) out.tips.emplace_back("Include a special character, e.g (!,@,#,$,%).");
+
+	return out;
+}
+// gives feedback based on how strong they make the password
+string strength_label(int score)
+{
+	switch (score)
+	{
+	case 5: return "Very Strong"; // will use this one in a Do While loop for the condition to exit the loop
+	case 4: return "Strong";
+	case 3: return "Moderate";
+	case 2: return "Weak";
+	default: return "Very Weak";
+	}
+}
+// =======================
+
 
 int main() {
     while (true) {
@@ -520,7 +596,11 @@ int main() {
 			string username, password;
 			cout << "*************** Login ***************\n";
 			cout << "Username: "; getline(cin, username);
-			cout << "Password: "; getline(cin, password);
+			cout << "Password: "; password = get_valid_password();
+
+			
+
+			//getline(cin, password);
 
 			int studentIndex = -1;
 			for (int i = 0; i < students.size(); ++i) {
@@ -590,3 +670,42 @@ int main() {
     }
     return 0;
 }
+
+// =======================
+// Password Functions
+// =======================
+// Coded by Matthew
+// =======================
+string get_valid_password()
+{
+	string password;
+	Result res;
+
+	do
+	{
+		// Tell the user the password conditions
+		cout << "***** Password Conditions *****" << endl;
+		cout << "Please use an Upper and lower case, A number. " << endl;
+		cout << "A special character and be 8 characters long." << endl;
+		cout << endl;
+		cout << "Enter a Password: \n";
+		//cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		getline(cin, password);
+
+		res = evaluate_password(password); // Calling the function to evaluate the password after its been input
+
+		cout << "\nPassword Strength: " << strength_label(res.score)
+			<< " (" << res.score << "/5)\n"; // Gives a score out of 5
+
+		if (!res.tips.empty()) // output the tips for the best practices they haven't followed yet.
+		{
+			cout << "\nSuggestions:\n";
+			for (const string& tip : res.tips)
+				cout << "  . " << tip << '\n' << endl;
+		}
+
+	} while (res.score < 5); // let the loop end once they have reached a perfect score (followed best practices).
+
+	return password;
+}
+// =======================
