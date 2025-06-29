@@ -327,7 +327,7 @@ string strength_label(int score)
 // =======================
 // Main Menu
 // =======================
-// Coded by Han
+// Coded by Laila
 // =======================
 int main() { // main function to run the TalentHub Online application
     while (true) {
